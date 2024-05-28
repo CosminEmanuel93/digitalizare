@@ -1,10 +1,17 @@
 ---
 
-testadminusers_users:
-test01: [ghs, dto]
-test02: []
-test03: [ghs]
-
 testadminusers_groups:
-  - ghs
-  - dto
+  - group1
+  - group2
+
+testadminusers_users:
+  user1:
+    groups:
+      - group1
+    platforms:
+      - platform1
+  user2:
+    groups:
+      - group2
+    platforms:
+      - platform2
