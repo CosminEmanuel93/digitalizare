@@ -1,7 +1,7 @@
 ---
 
 - name: testadminusers access
-  host: all
+  hosts: localhosts
   become: true
   become_user: root
   roles:
