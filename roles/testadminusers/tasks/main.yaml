@@ -12,9 +12,9 @@
 
 - name: Ensure groups are created
   ansible.builtin.group:
-    name: "{{ group_item }}"
+    name: "{{ group_item }}" # check group and loop var to be corectly write
     state: present
-  loop: "{{ testadminusers_groups }}"
+  loop: "{{ testadminusers_groups }}" 
   loop_control:
     loop_var: group_item
   when: ansible_facts is defined
@@ -26,7 +26,7 @@
     append: true
   loop: "{{ testadminusers_users }}"
   loop_control:
-    loop_var: testadminusers_user_item
+    loop_var: user_item
   when:
     - ansible_facts is defined
     - "user_item.value.platforms | intersect(ansible_facts.tags) | length > 0"
