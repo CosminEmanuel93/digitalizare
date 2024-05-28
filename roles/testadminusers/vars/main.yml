@@ -1,0 +1,10 @@
+---
+
+testadminusers_users:
+test01: [ghs, dto]
+test02: []
+test03: [ghs]
+
+testadminusers_groups:
+ghs: []
+dto: []

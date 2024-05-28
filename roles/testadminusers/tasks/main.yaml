@@ -4,8 +4,8 @@
     my_custom_fact: "ghs"
 
 - name: Add file
-  ansible.builtin.include_defaults:
-    file: defaults/main.yml
+  ansible.builtin.include_vars:
+    file: vars/main.yml
 
 - name: Gather server facts
   ansible.builtin.setup:
