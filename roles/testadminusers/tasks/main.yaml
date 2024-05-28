@@ -12,11 +12,11 @@
 
 - name: Ensure groups are created
   ansible.builtin.group:
-    name: "{{ group_item }}" # check group and loop var to be corectly write
+    name: "{{ testadminusers_groups_item }}" # check group and loop var to be corectly write
     state: present
   loop: "{{ testadminusers_groups }}" 
   loop_control:
-    loop_var: group_item
+    loop_var: testadminusers_groups_item
   when: ansible_facts is defined
 
 - name: Check for users and create user if tags match
