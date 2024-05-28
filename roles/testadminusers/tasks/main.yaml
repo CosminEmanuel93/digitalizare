@@ -29,7 +29,6 @@
     loop_var: user_item
   when:
     - ansible_facts is defined
-    - "user_item.value.platforms | intersect(ansible_facts.tags) | length > 0"
 
 - name: Remove user if tags don't match
   ansible.builtin.user:
