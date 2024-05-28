@@ -24,7 +24,7 @@
     name: "{{ user_item.key }}"
     groups: "{{ user_item.value.groups }}"
     append: true
-  loop: "{{ testadminusers_users }}"
+  loop: "{{ testadminusers_users | dict2items }}"
   loop_control:
     loop_var: user_item
   when:
@@ -35,7 +35,7 @@
   ansible.builtin.user:
     name: "{{ user_item.key }}"
     state: absent
-  loop: "{{ testadminusers_users }}"
+  loop: "{{ testadminusers_users | dict2items }}"
   loop_control:
     loop_var: testadminusers_user_item
   when:
