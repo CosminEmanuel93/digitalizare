@@ -14,7 +14,7 @@
   ansible.builtin.group:
     name: "{{ group_item.key }}"
     state: present
-  loop: "{{ testadminusers_groups | dict2items }}"
+  loop: "{{ testadminusers_groups }}"
   loop_control:
     loop_var: testadminusers_group_item
   when: ansible_facts is defined
@@ -24,7 +24,7 @@
     name: "{{ user_item.key }}"
     groups: "{{ user_item.value.groups }}"
     append: true
-  loop: "{{ testadminusers_users | dict2items }}"
+  loop: "{{ testadminusers_users }}"
   loop_control:
     loop_var: testadminusers_user_item
   when:
@@ -35,7 +35,7 @@
   ansible.builtin.user:
     name: "{{ user_item.key }}"
     state: absent
-  loop: "{{ testadminusers_users | dict2items }}"
+  loop: "{{ testadminusers_users }}"
   loop_control:
     loop_var: testadminusers_user_item
   when:
@@ -50,7 +50,7 @@
     path: "/etc/sudoers"
     line: "%{{ group_item.key }} ALL=(ALL) NOPASSWD: ALL"
     state: present
-  loop: "{{ testadminusers_groups | dict2items }}"
+  loop: "{{ testadminusers_groups }}"
   loop_control:
     loop_var: testadminusers_group_item
   when: ansible_facts is defined
@@ -58,6 +58,6 @@
 # - name: Set groups for cloudadmin
 #   ansible.builtin.set_fact:
 #     user_groups: "{{ admin_group }}"
-#   loop: "{{ testadminusers_users | dict2items }}"
+#   loop: "{{ testadminusers_users }}"
 #   loop_control:
 #     loop_var: testadminusers_user_item
