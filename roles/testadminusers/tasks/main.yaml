@@ -1,0 +1,64 @@
+---
+- name: Create fact for testing
+  ansible.builtin.set_fact:
+    my_custom_fact: "ghs"
+
+- name: Add file
+  ansible.builtin.include_vars:
+    file: defaults/main.yml
+
+- name: Gather server facts
+  ansible.builtin.setup:
+
+- name: Ensure groups are created
+  ansible.builtin.group:
+    name: "{{ group_item.key }}"
+    state: present
+  loop: "{{ testadminusers_groups | dict2items }}"
+  loop_control:
+    loop_var: testadminusers_group_item
+  when: ansible_facts is defined
+
+- name: Check for users and create user if tags match
+  ansible.builtin.user:
+    name: "{{ user_item.key }}"
+    groups: "{{ user_item.value.groups }}"
+    append: true
+  loop: "{{ testadminusers_users | dict2items }}"
+  loop_control:
+    loop_var: testadminusers_user_item
+  when:
+    - ansible_facts is defined
+    - "user_item.value.platforms | intersect(ansible_facts.tags) | length > 0"
+
+- name: Remove user if tags don't match
+  ansible.builtin.user:
+    name: "{{ user_item.key }}"
+    state: absent
+  loop: "{{ testadminusers_users | dict2items }}"
+  loop_control:
+    loop_var: testadminusers_user_item
+  when:
+    - ansible_facts is defined
+    - "{{ user_item.value.groups }}" not in ansible_facts.tags
+
+# - name: Create task to create CyberArk accounts
+#   ansible.builtin.include_tasks: tasks/cyberark.yaml
+#   when: account does not exist
+
+- name: Ensure specific groups have sudo access
+  ansible.builtin.lineinfile:
+    path: "/etc/sudoers"
+    line: "%{{ group_item.key }} ALL=(ALL) NOPASSWD: ALL"
+    state: present
+  loop: "{{ testadminusers_groups | dict2items }}"
+  loop_control:
+    loop_var: testadminusers_group_item
+  when: ansible_facts is defined
+
+# - name: Set groups for cloudadmin
+#   ansible.builtin.set_fact:
+#     user_groups: "{{ admin_group }}"
+#   loop: "{{ testadminusers_users | dict2items }}"
+#   loop_control:
+#     loop_var: testadminusers_user_item

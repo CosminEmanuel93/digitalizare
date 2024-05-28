@@ -1,0 +1,9 @@
+---
+
+- name: testadminusers access
+  host: all
+  become: true
+  become_user: root
+  roles:
+    - testadminusers
+    
