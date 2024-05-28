@@ -6,5 +6,5 @@ test02: []
 test03: [ghs]
 
 testadminusers_groups:
-ghs: []
-dto: []
+  - ghs
+  - dto
