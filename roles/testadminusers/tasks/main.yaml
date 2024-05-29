@@ -21,18 +21,18 @@
 
 - name: Check for users and create user if tags match
   ansible.builtin.user:
-    name: "{{ user_item.key }}"
+    name: "{{ testadminusers_user_item.key }}"
     groups: "{{ user_item.value.groups }}"
     append: true
   loop: "{{ testadminusers_users | dict2items }}"
   loop_control:
-    loop_var: user_item
+    loop_var: testadminusers_user_item
   when:
     - ansible_facts is defined
 
 - name: Remove user if tags don't match
   ansible.builtin.user:
-    name: "{{ user_item.key }}"
+    name: "{{ testadminusers_user_item.key }}"
     state: absent
   loop: "{{ testadminusers_users | dict2items }}"
   loop_control:
