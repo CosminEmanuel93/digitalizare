@@ -21,16 +21,6 @@
 
 - name: Remove user if tags don't match
   ansible.builtin.user:
-    name: "{{ user_item.key }}"
-    state: absent
-  loop: "{{ testadminusers_users | dict2items }}"
-  loop_control:
-    loop_var: user_item
-  when:
-    - ansible_facts is defined
-
-- name: Remove user if tags don't match
-  ansible.builtin.user:
     name: "{{ testadminusers_user_item.key }}"
     state: absent
   loop: "{{ testadminusers_users | dict2items }}"
@@ -46,7 +36,7 @@
 - name: Ensure specific groups have sudo access
   ansible.builtin.lineinfile:
     path: "/etc/sudoers"
-    line: "%{{ group_item.key }} ALL=(ALL) NOPASSWD: ALL"
+    line: "%{{ testadminusers_group_item }} ALL=(ALL) NOPASSWD: ALL"
     state: present
   loop: "{{ testadminusers_groups }}"
   loop_control:
