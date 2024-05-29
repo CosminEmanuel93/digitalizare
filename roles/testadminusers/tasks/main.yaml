@@ -19,6 +19,22 @@
     loop_var: testadminusers_groups_item
   when: ansible_facts is defined
 
+- name: Check for users and create user if tags match
+  ansible.builtin.user:
+    name: "{{ user_item.key }}"
+    groups: "{{ user_item.value.groups }}"
+    append: true
+  loop: "{{ testadminusers_users | dict2items }}"
+  loop_control:
+    loop_var: user_item
+  when:
+    - ansible_facts is defined
+    - "user_item.value.groups | intersect(ansible_facts.tags) | length > 0"
+
+- name: Debug user_item during creation
+  debug:
+    msg: "Creating user {{ user_item.key }} with groups {{ user_item.value.groups }}"
+    
 - name: Remove user if tags don't match
   ansible.builtin.user:
     name: "{{ testadminusers_user_item.key }}"
