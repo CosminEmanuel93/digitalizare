@@ -30,10 +30,6 @@
   when:
     - ansible_facts is defined
 
-- name: Debug user_item during creation
-  debug:
-    msg: "Creating user {{ testadminusers_user_item.key }} with groups {{ testadminusers_user_item.value.groups }}"
-
 - name: Remove user if tags don't match
   ansible.builtin.user:
     name: "{{ testadminusers_user_item.key }}"
