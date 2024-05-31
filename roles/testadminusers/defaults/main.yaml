@@ -3,12 +3,17 @@
 testadminusers_groups:
   - group1
   - group2
+  - test
+  - ghs
 
 testadminusers_users:
   user1:
     groups:
       - group1
+      - group2
    
   user2:
     groups:
       - group2
+      - test
+      - ghs
