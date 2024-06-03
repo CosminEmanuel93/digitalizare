@@ -1,5 +1,7 @@
 ---
 
+sudoers: /etc/sudoers
+
 testadminusers_groups:
   - ghs
   - us7216
