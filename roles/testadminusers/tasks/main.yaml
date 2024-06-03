@@ -9,40 +9,40 @@
 
 - name: Ensure groups are created
   ansible.builtin.group:
-    name: "{{ pwdadminusers_group_item }}"
+    name: "{{ testadminusers_group_item }}"
     state: present
-  loop: "{{ pwdadminusers_groups }}"
+  loop: "{{ testadminusers_groups }}"
   loop_control:
-    loop_var: pwdadminusers_group_item
+    loop_var: testadminusers_group_item
   when: ansible_facts is defined
 
 - name: Check for users and create users that have that specific tag
   ansible.builtin.user:
-    name: "{{ pwdadminusers_user_item.key }}"
-    groups: "{{ pwdadminusers_user_item.value.groups }}"
+    name: "{{ testadminusers_user_item.key }}"
+    groups: "{{ testadminusers_user_item.value.groups }}"
     append: true
-  loop: "{{ pwdadminusers_users | dict2items }}"
+  loop: "{{ testadminusers_users | dict2items }}"
   loop_control:
-    loop_var: pwdadminusers_user_item
+    loop_var: testadminusers_user_item
   when: ansible_facts is defined
 
 - name: Absent state ensure users that don’t have that specific tag are deleted
   ansible.builtin.user:
-    name: "{{ pwdadminusers_user_item.key }}"
+    name: "{{ testadminusers_user_item.key }}"
     state: absent
-  loop: "{{ pwdadminusers_users | dict2items }}"
+  loop: "{{ testadminusers_users | dict2items }}"
   loop_control:
-    loop_var: pwdadminusers_user_item
-  when: "pwdadminusers_user_item.value.groups | length == 0"
+    loop_var: testadminusers_user_item
+  when: "testadminusers_user_item.value.groups | length == 0"
 
 - name: Ensure specific groups have sudo access
   ansible.builtin.lineinfile:
     path: "{{ sudoers }}"
-    line: "%{{ pwdadminusers_group_item.key }} ALL=(ALL) NOPASSWD: ALL"
+    line: "%{{ testadminusers_group_item.key }} ALL=(ALL) NOPASSWD: ALL"
     state: present
-  loop: "{{ pwdadminusers_groups }}"
+  loop: "{{ testadminusers_groups }}"
   loop_control:
-    loop_var: pwdadminusers_group_item
+    loop_var: testadminusers_group_item
   when: ansible_facts is defined
 
 - name: If any group are deleted

@@ -20,7 +20,7 @@ testadminusers_users:
     groups: []
   asria002a:
     groups: []
-  asria002a:
+  asrira002a:
     groups:
       - ghs
       - puppet
