@@ -1,14 +1,58 @@
 ---
 
 testadminusers_groups:
-  - group1
-  - group2
+  - ghs
+  - us7216
+  - dto
+  - eu
+  - puppet
+  - puppet_ops
 
 testadminusers_users:
-  user1:
+  achra444a:
     groups:
-      - group1
-   
-  user2:
+      - ghs
+      - puppet
+      - us7216
+      - puppet_ops
+      - dto
+  arua001a:
+    groups: []
+  asria002a:
+    groups: []
+  asria002a:
     groups:
-      - group2
+      - ghs
+      - puppet
+      - us7216
+      - puppet_ops
+      - dto
+  bmanjutho001a:
+    groups:
+      - ghs
+      - puppet
+      - dto
+  chan001a:
+    groups:
+      - ghs
+      - puppet
+  cloudadmin:
+    groups:
+      - ghs
+      - puppet
+      - us7216
+  cloudops:
+    groups: []
+  djdud2001a:
+    groups: []
+  dramwater001:
+    groups: []
+  dwer002a:
+    groups: []
+  edursamy001a:
+    groups:
+      - ghs
+      - puppet
+      - us7216
+      - puppet_ops
+      - dto
